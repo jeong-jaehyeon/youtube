@@ -6,6 +6,21 @@ import VideoList from './components/video_list/video_list';
 function App() {
   const [videos_app, setVideos] = useState([]);
 
+  //쿼리를 인자로 가져가서 그때마다 다른 검색어를 검색하게 해준다.
+  const search = (query) => {
+    const requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    console.log("앱단의 서치 시작합니다.")
+    fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${query}&type=video&key=AIzaSyDj9syl9woEdyVzb71BH9tlNXztwa-4j7g`, requestOptions)
+      .then(response => response.json())
+      .then(result => result.items.map(item => ({...item, id:item.id.videoId})))
+      .then(items => setVideos(items))
+      .catch(error => console.log('error', error));
+  }
+
   useEffect(() => {
     console.log('비디오 api를 가져오기 위한 useEffect 실행');
     const requestOptions = {
@@ -22,7 +37,7 @@ function App() {
   console.log({ videos_app } + '나는 비데오즈앱이다!!')
   return (
     <div className={styles.app}>
-      <SearchHeader></SearchHeader>
+      <SearchHeader onSearch={search}></SearchHeader>
       <VideoList videos_list={videos_app}></VideoList>
     </div>
   );
