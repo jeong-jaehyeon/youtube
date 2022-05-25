@@ -3,41 +3,34 @@ import styles from './app.module.css';
 import SearchHeader from './components/search_header/search_header';
 import VideoList from './components/video_list/video_list';
 
-function App() {
+function App({ youtube }) {
   const [videos_app, setVideos] = useState([]);
 
   //쿼리를 인자로 가져가서 그때마다 다른 검색어를 검색하게 해준다.
-  const search = (query) => {
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-    
+  const search_app = (query) => {
     console.log("앱단의 서치 시작합니다.")
-    fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${query}&type=video&key=AIzaSyDj9syl9woEdyVzb71BH9tlNXztwa-4j7g`, requestOptions)
-      .then(response => response.json())
-      .then(result => result.items.map(item => ({...item, id:item.id.videoId})))
-      .then(items => setVideos(items))
-      .catch(error => console.log('error', error));
-  }
+    youtube
+    .search_youtube(query) //
+    .then(videos_app => setVideos(videos_app));
+  };
+
+  //쿼리를 인자로 가져가서 쿼리에 맞는 영화를 검색해준다.
+  const search_movie_app = (query) => {
+    console.log("앱단의 무비 서치 시작합니다.")
+    youtube
+    .search_youtbue_movie(query)
+    .then(videos_app => setVideos(videos_app));
+  };
 
   useEffect(() => {
-    console.log('비디오 api를 가져오기 위한 useEffect 실행');
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-
-    fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyDj9syl9woEdyVzb71BH9tlNXztwa-4j7g", requestOptions)
-      .then(response => response.json()) // json 형식으로 콘솔에 출력
-      .then(result => setVideos(result.items)) // 리절트의 아이템이 내가 원하는 유튜브 동영상 목록임으로 그것을 setVideos에 넣어서 videos_app에 넣음.
-      .catch(error => console.log('error', error));
+    youtube
+    .mostPopular() //
+    .then(videos_app => setVideos(videos_app));
   }, []);
 
-  console.log({ videos_app } + '나는 비데오즈앱이다!!')
   return (
     <div className={styles.app}>
-      <SearchHeader onSearch={search}></SearchHeader>
+      <SearchHeader onSearch={search_app} onSearch2={search_movie_app}></SearchHeader>
       <VideoList videos_list={videos_app}></VideoList>
     </div>
   );

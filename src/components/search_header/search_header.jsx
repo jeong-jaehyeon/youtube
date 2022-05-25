@@ -8,7 +8,7 @@ import React, { useRef } from 'react';
 // }
 
 // 엔터든 돋보기 클릭이든 서치가 실행되면 onSearch 라는 콜백함수를 불러.
-const SearchHeader = ({ onSearch }) => {
+const SearchHeader = ({ onSearch, onSearch2 }) => {
     // 검색 인풋 필드 안에 값을 inputRef로 useRef를 이용하여 받아놓고.
     const inputRef = useRef();
 
@@ -31,6 +31,14 @@ const SearchHeader = ({ onSearch }) => {
         }
     };
 
+    // 두번째 검색 아이콘 클릭하여 무비 검색
+    const onClick_movie_button = () => {
+        console.log('온클릭 무비 버튼 실행됩니다.');
+        const value = inputRef.current.value;
+        onSearch2(value);
+        console.log(value + '무비 온 서치 실행했어요~~');
+    };
+
 
     return (
         <header className={styles.header}>
@@ -42,6 +50,9 @@ const SearchHeader = ({ onSearch }) => {
             {/* ref 선언 */}
             <button className={styles.button} type='submit' onClick={onClick2}>
                 <img className={styles.buttonImage} src='./images/search.png' alt='확인 버튼 이미지'></img>
+            </button>
+            <button className={styles.button_movie} type='submit' onClick={onClick_movie_button}>
+                <img className={styles.buttonImage_movie} src='./images/search.png' alt='확인 버튼 이미지'></img>
             </button>
         </header>
     );

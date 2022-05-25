@@ -13,16 +13,26 @@
 }
 
 .input {
-    flex-basis: 100%;
+    flex-basis: 80%;
     font-size: 1.22rem;
     outline: 0;
+    
 }
 
 .button {
     background-color: darkgray;
 }
 
+.button_movie {
+    background-color: greenyellow;
+}
+
 .buttonImage {
+    height: 100%;
+    padding: 0.5em 0.2rem;
+}
+
+.buttonImage_movie {
     height: 100%;
     padding: 0.5em 0.2rem;
 }
