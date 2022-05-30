@@ -1,11 +1,10 @@
 import styles from './search_header.module.css'
 import React, { useRef } from 'react';
 
-
-// const aa = () => {
-//     console.log('새로고침 시작')
-//     window.location.reload();
-// }
+const refresh = () => {
+    console.log('새로고침 시작')
+    window.location.reload();
+}
 
 // 엔터든 돋보기 클릭이든 서치가 실행되면 onSearch 라는 콜백함수를 불러.
 const SearchHeader = ({ onSearch, onSearch2 }) => {
@@ -39,10 +38,9 @@ const SearchHeader = ({ onSearch, onSearch2 }) => {
         console.log(value + '무비 온 서치 실행했어요~~');
     };
 
-
     return (
         <header className={styles.header}>
-            <div className={styles.logo}>
+            <div className={styles.logo} onClick={refresh}>
                 <img className={styles.img} src='./images/logo.png' alt='유튜브 아이콘'></img>
                 <h1 className={styles.title}>Youtube</h1>
             </div>
