@@ -8,13 +8,13 @@ class Youtube {
     }
 
     // 제일 인기있는 25개 동영상
-    mostPopular() {
-        return fetch(
+    async mostPopular() {
+        const response = await fetch(
             `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=${this.key}`,
             this.getRequestOptions
-        )
-            .then(response => response.json()) // json 형식으로 콘솔에 출력
-            .then(result => result.items) // 리절트의 아이템이 내가 원하는 유튜브 동영상 목록임으로 그것을 setVideos에 넣어서 videos_app에 넣음.
+        );
+        const result_1 = await response.json();
+        return result_1.items; // 리절트의 아이템이 내가 원하는 유튜브 동영상 목록임으로 그것을 setVideos에 넣어서 videos_app에 넣음.
     }
 
     // 인자를 받아서 검색해주는
