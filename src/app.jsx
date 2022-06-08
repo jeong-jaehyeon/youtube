@@ -33,13 +33,14 @@ function App({ youtube }) {
     youtube
     .mostPopular() //
     .then(videos_app => setVideos(videos_app));
-  }, []);
+  });
 
   return (
     <div className={styles.app}>
       <SearchHeader onSearch={search_app} onSearch2={search_movie_app}></SearchHeader>
       {
-        // 셀렉티드 비디오가(선택된 비디오가) 있다면 비디오 디테일이라는 컴포넌트를 이용해서 비디오를 전달해줄거야.
+        // 셀렉티드 비디오가(선택된 비디오가) 있다면 
+        // 비디오 디테일이라는 컴포넌트를 이용해서 비디오를 전달해줄거야.
         // 비디오 선택은 밑인 비디오 리스트에서 온클릭 비디오가 실행되면 선택됨.
         selectedVideo && <VideoDetail video={selectedVideo}></VideoDetail>
       }
